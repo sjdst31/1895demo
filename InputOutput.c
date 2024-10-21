@@ -123,7 +123,7 @@ int main(void){ uint8_t status;
 // Version 2 version is friendly
 void Port1_Init2(void){
   P1->SEL0 &= ~0x13;
-  P1->SEL1 &= ~0x13;   // 1) configure P1.4  P1.1 P1.0 as GPIO
+  P1->SEL1 &= ~0x15;   // 1) configure P1.4  P1.1 P1.0 as GPIO
   P1->DIR &= ~0x12;    // 2) make P1.4 and P1.1 in
   P1->DIR |= 0x01;     // 2) make P1.0 out
   P1->REN |= 0x12;     // 3) enable pull resistors on P1.4 and P1.1
@@ -137,7 +137,7 @@ void Port1_Output2(uint8_t data){  // write output to P1.0
 }
 void Port2_Init2(void){
   P2->SEL0 &= ~0x07;
-  P2->SEL1 &= ~0x80;    // 1) configure P2.2-P2.0 as GPIO
+  P2->SEL1 &= ~0x81;    // 1) configure P2.2-P2.0 as GPIO
   P2->DIR |= 0x07;      // 2) make P2.2-P2.0 out
   P2->DS |= 0x07;       // 3) activate increased drive strength
   P2->OUT &= ~0x07;     //    all LEDs off
@@ -161,8 +161,8 @@ int main2(void){ uint8_t status;
         Port1_Output2(1);
         break;
       case 0x00:                    // both switches pressed
-        Port2_Output3(BLUE+RED);
-        Port1_Output2(1);
+        Port2_Output3(YELLOW+RED);
+        Port1_Output2(0);
         break;
       case 0x12:                    // neither switch pressed
         Port2_Output2(0);
